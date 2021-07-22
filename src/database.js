@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const URI = "mongodb://mongo/keepsAPP";
+const URI = "mongodb://localhost/keepsAPP";
 require("dotenv").config({ path: "variables.env" });
 mongoose
   .connect(URI, {

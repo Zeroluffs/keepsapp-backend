@@ -6,6 +6,8 @@ keepCtrl.addKeep = async (req, res) => {
   const newKeep = new Keep({
     title: req.body.title,
     description: req.body.description,
+    label: req.body.label,
+    color: req.body.color,
   });
 
   await newKeep.save();
@@ -19,6 +21,17 @@ keepCtrl.deleteKeep = async (req, res) => {
 
 keepCtrl.getKeeps = async (req, res) => {
   const keeps = await Keep.find();
+  console.log(keeps);
   res.json(keeps);
+};
+
+keepCtrl.updateKeep = async (req, res) => {
+  await Keep.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    { new: true }
+  );
+
+  res.send("Keep  Updated");
 };
 module.exports = keepCtrl;

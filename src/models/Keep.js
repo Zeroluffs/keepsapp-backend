@@ -5,6 +5,8 @@ const KeepSchema = new Schema(
   {
     title: String,
     description: String,
+    label: String,
+    color: String,
   },
   {
     timestamps: true,
