@@ -7,6 +7,7 @@ const KeepSchema = new Schema(
     description: String,
     label: String,
     color: String,
+    status: String,
   },
   {
     timestamps: true,

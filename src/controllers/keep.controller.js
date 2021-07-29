@@ -8,10 +8,12 @@ keepCtrl.addKeep = async (req, res) => {
     description: req.body.description,
     label: req.body.label,
     color: req.body.color,
+    status: "active",
   });
 
   await newKeep.save();
-  res.send("keep saved");
+  console.log(newKeep);
+  res.send(newKeep);
 };
 
 keepCtrl.deleteKeep = async (req, res) => {
@@ -25,13 +27,29 @@ keepCtrl.getKeeps = async (req, res) => {
   res.json(keeps);
 };
 
+keepCtrl.getKeepsLabel = async (req, res) => {
+  const keeps = await Keep.find();
+  const newKeeps = keeps.filter(
+    (keep) => keep.label === req.params.label && keep.status === "active"
+  );
+  res.json(newKeeps);
+};
 keepCtrl.updateKeep = async (req, res) => {
-  await Keep.findByIdAndUpdate(
+  const response = await Keep.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
     { new: true }
   );
 
-  res.send("Keep  Updated");
+  res.send(response);
+};
+
+keepCtrl.archiveKeep = async (req, res) => {
+  await Keep.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    { new: true }
+  );
+  res.send("Keep  Archived");
 };
 module.exports = keepCtrl;
